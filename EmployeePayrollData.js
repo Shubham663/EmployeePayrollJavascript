@@ -8,7 +8,7 @@ class EmployeePayrollData{
     constructor(id,name,salary,gender,startDate){
         this.id = id;
         this.name = name;
-        this._salary = salary;
+        this.salary = salary;
         this._gender = gender;
         this._startDate = startDate;
     }
@@ -16,7 +16,9 @@ class EmployeePayrollData{
     get id(){   return this._id; }
 
     set id(id){
-        this._id = id;
+        if(id > 0)
+            this._id = id;
+        else throw "Employee id should be greater than zero";
     }
 
     toString(){
@@ -25,8 +27,36 @@ class EmployeePayrollData{
         return "id= " + this.id + ", name= " + this.name + ", salary= " + this._salary + ", start date= " + empDate + ", gender= " + this._gender;
     }
 
+    get salary(){
+        return this._salary;
+    }
+    set salary(salary){
+        if(salary > 0)
+            this._salary = salary;
+        else throw "salary shoud be greater than zero";
+    }
+
+    get gender(){
+        return this._gender;
+    }
+
+    set gender(gender){
+        if(gender == "F" || gender == "M")
+            this._gender = gender;
+        else throw "Please enter valid gender";
+    }
+
+    get startDate(){
+        return this._startDate;
+    }
+
+    set startDate(startDate){
+        if(startDate <= new Date())
+            this._startDate = startDate;
+        else throw "You entered start date sometime in future";
+    }
+
     get name(){
-        // console.log("getter called");
         return this._name;
     }
     set name(name){
@@ -47,3 +77,28 @@ try{
     console.error(e);
 }
 console.log(employeePayrollData2.toString());
+
+try{
+    employeePayrollData2.startDate = new Date(2020,04,1);
+}catch(e){
+    console.error(e);
+}
+console.log(employeePayrollData2.toString());
+
+try{
+    employeePayrollData2.gender = "Female";
+}catch(e){
+    console.error(e);
+}
+console.log(employeePayrollData2.toString());
+
+try{
+    employeePayrollData2.id = -3;
+}catch(e){
+    console.error(e);
+}
+try{
+    employeePayrollData2.salary = -32000;
+}catch(e){
+    console.error(e);
+}
